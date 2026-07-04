@@ -30,7 +30,7 @@ class Settings(BaseModel):
     semantic_top_k: int = 12
     bm25_top_k: int = 8
     rerank_top_k: int = 6
-    request_timeout: int = 60
+    request_timeout: int = 180
     require_citations: bool = True
     use_reranker_by_default: bool = False
     rewrite_queries_by_default: bool = False
