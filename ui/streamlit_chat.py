@@ -191,8 +191,10 @@ def render_app() -> None:
                             )
                             st.markdown(result.answer)
                         except Exception as exc:
+                            import traceback
+                            traceback.print_exc()  # print full trace to terminal
                             result = None
-                            st.error(f"Local workflow failed: {exc}")
+                            st.error(f"⚠️ Workflow error: {type(exc).__name__}: {exc}")
                 if result:
                     st.session_state.last_answer = result
                     st.session_state.messages.append(
