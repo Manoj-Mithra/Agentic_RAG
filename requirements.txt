@@ -1,0 +1,13 @@
+streamlit
+langchain
+langchain-ollama
+langchain-core
+chromadb
+sentence-transformers
+pymupdf
+trafilatura
+beautifulsoup4
+rank-bm25
+duckduckgo-search
+pydantic
+python-dotenv
