@@ -25,9 +25,9 @@ class Settings(BaseModel):
     embedding_model: str = "BAAI/bge-small-en-v1.5"
     reranker_model: str = "BAAI/bge-reranker-base"
     collection_name: str = "agentic_rag"
-    chunk_size: int = 900
-    chunk_overlap: int = 140
-    semantic_top_k: int = 12
+    chunk_size: int = 1400
+    chunk_overlap: int = 200
+    semantic_top_k: int = 15
     bm25_top_k: int = 8
     rerank_top_k: int = 6
     request_timeout: int = 180
