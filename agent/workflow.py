@@ -10,13 +10,23 @@ from retrieval.search import search_local_context
 from retrieval.vector_store import collection_count
 
 
-def answer_question(question: str, allow_web_search: bool = False, use_bm25: bool = True) -> AgentAnswer:
+def answer_question(
+    question: str,
+    allow_web_search: bool = False,
+    use_bm25: bool = True,
+    use_reranker: bool = False,
+    rewrite_queries: bool = False,
+) -> AgentAnswer:
     decision = route(question, allow_web_search=allow_web_search)
 
     for url in decision.urls:
         index_url(url)
 
-    rewritten = rewrite_query(question)
+    # Optionally rewrite the query via LLM for better retrieval
+    if rewrite_queries:
+        rewritten = rewrite_query(question)
+    else:
+        rewritten = question
 
     if decision.intent == Intent.SEARCH_WEB and allow_web_search:
         search_web_and_index(rewritten)
@@ -24,5 +34,5 @@ def answer_question(question: str, allow_web_search: bool = False, use_bm25: boo
     if collection_count() == 0:
         return generate_answer(question, [])
 
-    context = search_local_context(rewritten, use_bm25=use_bm25)
+    context = search_local_context(rewritten, use_bm25=use_bm25, use_reranker=use_reranker)
     return generate_answer(question, context)
